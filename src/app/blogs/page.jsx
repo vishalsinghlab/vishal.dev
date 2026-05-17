@@ -255,8 +255,7 @@ export default function MyBlogsPage() {
                 }
                 className="magnetic-button group relative px-8 py-4 rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.02]"
                 style={{
-                  background:
-                    "var(--gradient-metal)",
+                  background: "var(--gradient-metal)",
                   border: "1px solid var(--border-light)",
                   // boxShadow:
                   //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
@@ -313,8 +312,7 @@ export default function MyBlogsPage() {
               <div
                 className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8"
                 style={{
-                  background:
-                    "var(--gradient-metal)",
+                  background: "var(--gradient-metal)",
                   border: "1px solid var(--border-light)",
                   // boxShadow:
                   //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
@@ -363,8 +361,7 @@ export default function MyBlogsPage() {
                     }
                     className="w-full sm:w-auto magnetic-button group relative px-5 sm:px-6 py-3 rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.02]"
                     style={{
-                      background:
-                        "var(--gradient-metal)",
+                      background: "var(--gradient-metal)",
                       border: "1px solid var(--border-light)",
                     }}
                   >
@@ -379,8 +376,7 @@ export default function MyBlogsPage() {
                     onClick={handlePost}
                     className="w-full sm:w-auto magnetic-button group relative px-6 sm:px-8 py-3 rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.02]"
                     style={{
-                      background:
-                        "var(--gradient-metal)",
+                      background: "var(--gradient-metal)",
                       border: "1px solid var(--border-light)",
                       // boxShadow:
                       //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
@@ -449,8 +445,7 @@ export default function MyBlogsPage() {
                       ref={(el) => (blogCardsRef.current[index] = el)}
                       className="group relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02]"
                       style={{
-                        background:
-                          "var(--gradient-metal)",
+                        background: "var(--gradient-metal)",
                         border: "1px solid var(--border-light)",
                         // boxShadow:
                         //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",

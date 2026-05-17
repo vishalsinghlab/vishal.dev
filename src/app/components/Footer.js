@@ -96,10 +96,6 @@ export default function Footer() {
     tap: { scale: 0.95 },
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <>
       <footer
@@ -298,7 +294,7 @@ export default function Footer() {
                 style={{ color: "var(--text-muted)" }}
                 variants={itemVariant}
               >
-                © {new Date().getFullYear()} VISHAL SINGH. All rights reserved.
+                © 2023 VISHAL SINGH. All rights reserved.
               </motion.div>
 
               {/* Social Links - Enhanced */}
@@ -355,28 +351,6 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-
-      {/* Floating Scroll to Top Button */}
-      <AnimatePresence>
-        {showScrollButton && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0, y: 20 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 p-3 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 group"
-            style={{
-              background: "var(--gradient-metal)",
-              border: "1px solid var(--border-light)",
-            }}
-            aria-label="Back to top"
-          >
-            <FaArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
-          </motion.button>
-        )}
-      </AnimatePresence>
     </>
   );
 }

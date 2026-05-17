@@ -1,65 +1,50 @@
-//app/layout.js
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+
 import "./globals.css";
+
 import { ThemeProvider } from "@/context/ThemeContext";
 import LayoutWrapper from "@/app/components/LayoutWrapper";
-import Head from "next/head";
 import AssistantWrapper from "./components/AssistantWrapper";
 import BackButton from "./components/common/BackButton";
+import BackToTop from "./components/common/BackToTop";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Body font
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Headings font
+const heading = Space_Grotesk({
+  variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
-export const metadata = {
-  metadataBase: new URL("https://singhvishal.vercel.app"),
-  title: "Vishal Singh | Full-Stack Dev | AI Native",
-  icons: {
-    icon: [
-      { url: "/vs.png", sizes: "32x32", type: "image/png" },
-      { url: "/vs.png", sizes: "192x192", type: "image/png" },
-    ],
-  },
-  description: "Portfolio website of Vishal Singh",
-  openGraph: {
-    title: "Vishal Singh | Full-Stack Dev | AI Native",
-    description: "Portfolio website of Vishal Singh",
-    url: "https://singhvishal.vercel.app/",
-    siteName: "Vishal Singh",
-    images: ["/preview.webp"], // cleaner
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Vishal Singh | Full-Stack Dev | AI Native",
-    description: "Portfolio website of Vishal Singh",
-    images: ["/preview.webp"], // cleaner
-  },
-};
+// Mono font
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="app-theme theme-blue">
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${heading.variable} ${mono.variable} antialiased`}
       >
         <ThemeProvider>
           <LayoutWrapper>{children}</LayoutWrapper>
         </ThemeProvider>
-        <BackButton></BackButton>
-        <AssistantWrapper></AssistantWrapper>
+
+        <BackButton />
+        <BackToTop />
+        <AssistantWrapper />
       </body>
     </html>
   );

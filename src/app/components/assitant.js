@@ -74,7 +74,11 @@ export default function AssistantModal({ onClose }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-black/40"
+        className="fixed inset-0 z-50 flex items-center justify-center"
+        style={{
+          background: "var(--overlay-bg)",
+          backdropFilter: "var(--backdrop-blur)",
+        }}
         onClick={onClose}
       >
         <motion.div
@@ -83,24 +87,62 @@ export default function AssistantModal({ onClose }) {
           exit={{ scale: 0.95, opacity: 0 }}
           transition={{ duration: 0.25 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-xl h-[75vh] mx-4 flex flex-col rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl"
+          className="relative w-full max-w-xl h-[75vh] mx-4 flex flex-col overflow-hidden"
+          style={{
+            background: "var(--gradient-matte)",
+            border: "1px solid var(--border-light)",
+            borderRadius: "var(--radius-lg)",
+            boxShadow: "var(--shadow-xl)",
+          }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-            <h2 className="text-sm tracking-wide text-white/70">
+          <div
+            className="flex items-center justify-between px-5 py-4"
+            style={{ borderBottom: "1px solid var(--border-light)" }}
+          >
+            <h2
+              style={{
+                color: "var(--text-muted)",
+                fontSize: "0.875rem",
+                letterSpacing: "0.05em",
+              }}
+            >
               Chat with ViVA
             </h2>
 
             <button
               onClick={onClose}
-              className="text-white/40 hover:text-white transition"
+              className="transition-colors cursor-pointer"
+              style={{ color: "var(--text-muted)" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--text-primary)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--text-muted)")
+              }
             >
               <X size={18} />
             </button>
           </div>
 
           {/* Chat */}
-          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10">
+          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+            <style jsx>{`
+              .chat-container::-webkit-scrollbar {
+                width: 8px;
+              }
+              .chat-container::-webkit-scrollbar-track {
+                background: transparent;
+              }
+              .chat-container::-webkit-scrollbar-thumb {
+                background: var(--border-light);
+                border-radius: 8px;
+              }
+              .chat-container::-webkit-scrollbar-thumb:hover {
+                background: var(--border-medium);
+              }
+            `}</style>
+
             {messages.map((msg, i) => (
               <ChatMessage key={i} msg={msg} />
             ))}
@@ -111,24 +153,55 @@ export default function AssistantModal({ onClose }) {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-white/10">
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus-within:border-white/20 transition">
+          <div
+            style={{
+              padding: "var(--spacing-md)",
+              borderTop: "1px solid var(--border-light)",
+            }}
+          >
+            <div
+              className="flex items-center gap-3 transition-all focus-within:border-opacity-100"
+              style={{
+                background: "var(--input-bg)",
+                border: "1px solid var(--input-border)",
+                borderRadius: "var(--radius-full)",
+                padding: "0.75rem 1rem",
+              }}
+            >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleAsk()}
                 placeholder="Ask anything..."
-                className="flex-1 bg-transparent text-sm text-white placeholder:text-white/30 outline-none"
+                className="flex-1 bg-transparent outline-none"
+                style={{
+                  color: "var(--text-primary)",
+                  fontSize: "0.875rem",
+                }}
                 disabled={loading}
               />
 
               <button
                 onClick={handleAsk}
                 disabled={loading || !input.trim()}
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-30 transition"
+                className="p-2 rounded-full transition-all disabled:opacity-30"
+                style={{
+                  background: "var(--accent-muted)",
+                  color: "var(--accent)",
+                }}
+                onMouseEnter={(e) => {
+                  if (!loading && input.trim()) {
+                    e.currentTarget.style.background = "var(--accent)";
+                    e.currentTarget.style.color = "var(--bg-dark)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "var(--accent-muted)";
+                  e.currentTarget.style.color = "var(--accent)";
+                }}
               >
-                <FaPaperPlane className="w-4 h-4 text-white" />
+                <FaPaperPlane className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -144,7 +217,7 @@ function ChatMessage({ msg }) {
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} gap-3`}>
       {!isUser && (
-        <div className="pt-1 opacity-80">
+        <div style={{ paddingTop: "4px", opacity: 0.8 }}>
           <ChatBotIcon size={22} />
         </div>
       )}
@@ -152,16 +225,36 @@ function ChatMessage({ msg }) {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`max-w-[75%] px-4 py-3 text-sm leading-relaxed rounded-2xl ${
-          isUser
-            ? "bg-white text-black rounded-br-none"
-            : "bg-white/10 text-white rounded-bl-none"
-        }`}
+        className="max-w-[75%] px-4 py-3 text-sm leading-relaxed"
+        style={{
+          borderRadius: "var(--radius-lg)",
+          ...(isUser
+            ? {
+                background: "var(--accent)",
+                color: "var(--bg-dark)",
+                borderBottomRightRadius: "4px",
+              }
+            : {
+                background: "var(--bg-elevated)",
+                color: "var(--text-primary)",
+                borderBottomLeftRadius: "4px",
+                border: "1px solid var(--border-light)",
+              }),
+        }}
       >
         {isUser ? (
           msg.text
         ) : (
-          <div className="prose prose-invert text-sm max-w-none">
+          <div
+            className="prose text-sm max-w-none"
+            style={{
+              color: "var(--text-primary)",
+              "--tw-prose-body": "var(--text-secondary)",
+              "--tw-prose-headings": "var(--text-primary)",
+              "--tw-prose-links": "var(--accent)",
+              "--tw-prose-code": "var(--text-primary)",
+            }}
+          >
             <ReactMarkdown>{msg.text}</ReactMarkdown>
           </div>
         )}
@@ -172,11 +265,31 @@ function ChatMessage({ msg }) {
 
 function TypingIndicator() {
   return (
-    <div className="flex items-center gap-2 text-white/40 text-sm">
+    <div
+      className="flex items-center gap-2 text-sm"
+      style={{ color: "var(--text-muted)" }}
+    >
       <div className="flex gap-1">
-        <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce" />
-        <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce delay-100" />
-        <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce delay-200" />
+        <span
+          className="w-2 h-2 rounded-full animate-bounce"
+          style={{ background: "var(--accent)", opacity: 0.6 }}
+        />
+        <span
+          className="w-2 h-2 rounded-full animate-bounce"
+          style={{
+            background: "var(--accent)",
+            opacity: 0.6,
+            animationDelay: "100ms",
+          }}
+        />
+        <span
+          className="w-2 h-2 rounded-full animate-bounce"
+          style={{
+            background: "var(--accent)",
+            opacity: 0.6,
+            animationDelay: "200ms",
+          }}
+        />
       </div>
       ViVA is thinking...
     </div>

@@ -298,72 +298,11 @@ export default function About() {
                 with proper validation, error handling, and system design
                 practices.
               </p>
-              <p className="text-xs text-muted italic">
-                I design systems that don’t just work — they remain correct
-                under retries, failures, and scale.
-              </p>
-            </div>
-
-            {/* Engineering Principles */}
-            <div ref={principlesRef} className="mt-10 fade-up opacity-0">
-              <h3 className="text-sm font-medium text-muted uppercase tracking-wider mb-5">
-                Engineering Philosophy
-              </h3>
-              <div className="space-y-3">
-                {principles.map((principle, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-3 p-3 rounded-lg transition-all hover:bg-accent/5"
-                  >
-                    <principle.icon
-                      size={18}
-                      className="text-accent mt-0.5 flex-shrink-0"
-                    />
-                    <div>
-                      <h4 className="text-sm font-medium text-primary">
-                        {principle.title}
-                      </h4>
-                      <p className="text-xs text-muted">
-                        {principle.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
 
           {/* RIGHT COLUMN: Metrics + Experience */}
           <div>
-            {/* Metrics Grid */}
-            <div ref={metricsRef} className="fade-up opacity-0">
-              <h3 className="text-sm font-medium text-muted uppercase tracking-wider mb-5">
-                Production Metrics
-              </h3>
-              <div className="grid grid-cols-2 gap-3 mb-10">
-                {metrics.map((metric, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 rounded-xl text-center transition-all hover:scale-[1.02]"
-                    style={{
-                      background: "rgba(59, 130, 246, 0.03)",
-                      border: "1px solid var(--border-light)",
-                    }}
-                  >
-                    <div
-                      className="text-xl font-bold"
-                      style={{ color: metric.color }}
-                    >
-                      {counters[idx] === "0" ? "0" : counters[idx]}
-                    </div>
-                    <div className="text-[10px] text-muted mt-1 leading-tight">
-                      {metric.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Timeline */}
             <div ref={timelineRef} className="fade-up opacity-0">
               <h3 className="text-sm font-medium text-muted uppercase tracking-wider mb-5 flex items-center gap-2">

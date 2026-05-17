@@ -27,7 +27,7 @@ export default function LayoutWrapper({ children }) {
   useEffect(() => {
     const root = document.documentElement;
     // Remove ALL custom classes
-    root.className = "theme-blue";
+    // root.className = "theme-blue";
 
     if (
       pathname.startsWith("/test") ||

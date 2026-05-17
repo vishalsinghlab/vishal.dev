@@ -19,7 +19,7 @@ export default function BackButton({ label = "Back" }) {
     <button
       onClick={() => router.back()}
       className="
-        fixed z-50
+        fixed z-[9999]
         top-3 right-3
         md:left-6 md:right-auto
         flex items-center gap-2
@@ -34,10 +34,6 @@ export default function BackButton({ label = "Back" }) {
         color: "var(--text-primary)",
         background: "rgba(255,255,255,0.04)",
         border: "1px solid rgba(255,255,255,0.08)",
-        // boxShadow: `
-        //   inset 0 1px 0 rgba(255,255,255,0.06),
-        //   0 8px 20px rgba(0,0,0,0.6)
-        // `,
       }}
     >
       {/* Icon */}

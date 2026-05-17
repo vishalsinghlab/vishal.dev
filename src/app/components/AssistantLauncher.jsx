@@ -28,12 +28,9 @@ export default function AssistantLauncher() {
         <span
           className="mt-2 text-xs font-medium rounded-full px-3 py-1 shadow-md group-hover:opacity-100 opacity-0 group-hover:translate-y-[-4px] transition-all duration-300"
           style={{
-            background:
-              "var(--gradient-metal)",
+            background: "var(--gradient-metal)",
             border: "1px solid var(--border-light)",
             color: "var(--accent)",
-            // boxShadow:
-            //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
           }}
         >
           Ask ViVA
