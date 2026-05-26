@@ -280,7 +280,10 @@ export default function Work() {
           }}
         />
 
-        <div className="parallax-blob absolute top-1/2 right-0 -translate-y-1/2 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-accent-muted rounded-full blur-3xl" />
+        <div
+          className="parallax-blob absolute top-1/2 right-0 -translate-y-1/2 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] rounded-full blur-3xl"
+          style={{ background: "var(--accent-muted)" }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -322,10 +325,17 @@ export default function Work() {
                 <div
                   className={`space-y-4 sm:space-y-6 ${index % 2 !== 0 ? "lg:order-last" : ""}`}
                 >
-                  <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted">
-                    <span>0{index + 1}</span>
-                    <span className="w-6 sm:w-8 h-px bg-border-light" />
-                    <span>{project.year}</span>
+                  <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm">
+                    <span style={{ color: "var(--text-muted)" }}>
+                      0{index + 1}
+                    </span>
+                    <span
+                      className="w-6 sm:w-8 h-px"
+                      style={{ background: "var(--border-light)" }}
+                    />
+                    <span style={{ color: "var(--text-muted)" }}>
+                      {project.year}
+                    </span>
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-5xl font-medium text-primary leading-tight">
@@ -342,7 +352,14 @@ export default function Work() {
 
                   <a
                     href={project.link}
-                    className="group/link inline-flex items-center gap-2 sm:gap-3 text-muted hover:text-primary transition pt-2"
+                    className="group/link inline-flex items-center gap-2 sm:gap-3 transition pt-2"
+                    style={{ color: "var(--text-muted)" }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.color = "var(--text-primary)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "var(--text-muted)")
+                    }
                   >
                     <span className="text-xs sm:text-sm tracking-wider">
                       VIEW PROJECT
@@ -378,7 +395,13 @@ export default function Work() {
                     />
 
                     <div className="image-container relative aspect-[4/3] overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
+                      <div
+                        className="absolute inset-0 z-10"
+                        style={{
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.5), transparent 60%)",
+                        }}
+                      />
 
                       {!project.image ? (
                         <div className="w-full h-full flex items-center justify-center text-muted p-4 text-center text-sm sm:text-base">
@@ -414,9 +437,12 @@ export default function Work() {
                       )}
                     </div>
 
-                    {/* Full Page Indicator (optional) */}
+                    {/* Full Page Indicator */}
                     {project.isFullPageImage && (
-                      <div className="absolute bottom-2 left-2 text-white/60 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm z-30 pointer-events-none">
+                      <div
+                        className="absolute bottom-2 left-2 text-[10px] px-2 py-1 rounded-full backdrop-blur-sm z-30 pointer-events-none"
+                        style={{ color: "var(--text-muted)" }}
+                      >
                         ↓ Scroll to view
                       </div>
                     )}

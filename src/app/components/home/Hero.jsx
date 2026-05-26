@@ -5,53 +5,120 @@ import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown } from "lucide-react";
+
 import {
-  SiReact,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiTypescript,
-  SiPython,
-  SiAmazon,
-  SiDocker,
-  SiGraphql,
+  SiFrontendmentor,
+  SiServerless,
   SiGooglecloud,
-  SiExpress,
+  SiOpenai,
 } from "react-icons/si";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const techStack = [
-  { name: "REACT", category: "Frontend", icon: SiReact, color: "#61DAFB" },
+const expertise = [
   {
-    name: "NEXT.JS",
-    category: "Framework",
-    icon: SiNextdotjs,
-    color: "var(--primary)",
+    title: "Frontend Engineering",
+    icon: SiFrontendmentor,
+    description: "Modern UI systems, animations & interactions",
   },
   {
-    name: "NODE.JS",
-    category: "Backend",
-    icon: SiNodedotjs,
-    color: "#339933",
+    title: "Backend Architecture",
+    icon: SiServerless,
+    description: "Node.js, NestJS, FastAPI & scalable APIs",
   },
   {
-    name: "EXPRESS.JS",
-    category: "Backend",
-    icon: SiExpress,
-    color: "var(--primary)",
+    title: "Cloud & Infrastructure",
+    icon: SiGooglecloud,
+    description: "Deployment pipelines, Docker & cloud systems",
   },
   {
-    name: "TYPESCRIPT",
-    category: "Language",
-    icon: SiTypescript,
-    color: "#3178C6",
+    title: "AI Systems",
+    icon: SiOpenai,
+    description: "LLM integrations, agents & automation",
   },
-  { name: "PYTHON", category: "Language", icon: SiPython, color: "#3776AB" },
-  { name: "AWS", category: "Cloud", icon: SiAmazon, color: "#FF9900" },
-  { name: "GCP", category: "Cloud", icon: SiGooglecloud, color: "#4285F4" },
-  { name: "DOCKER", category: "DevOps", icon: SiDocker, color: "#2496ED" },
-  { name: "GRAPHQL", category: "API", icon: SiGraphql, color: "#E10098" },
 ];
+
+function Expertise({ activeIndex, setActiveIndex }) {
+  return (
+    <div className="tech-stack relative mt-10 sm:mt-14 px-2">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
+        {expertise.map((item, index) => {
+          const Icon = item.icon;
+
+          return (
+            <div
+              key={item.title}
+              className="tech-item opacity-0"
+              onMouseEnter={() => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
+            >
+              <div
+                className="group relative overflow-hidden rounded-2xl backdrop-blur-md p-5 h-full transition-all duration-500 hover:-translate-y-1"
+                style={{
+                  background:
+                    activeIndex === index
+                      ? "var(--accent-muted)"
+                      : "var(--bg-light)",
+                  borderColor:
+                    activeIndex === index
+                      ? "var(--border-medium)"
+                      : "var(--border-light)",
+                  boxShadow:
+                    activeIndex === index
+                      ? "var(--shadow-glow)"
+                      : "var(--shadow-sm)",
+                }}
+              >
+                {/* Glow effect */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: "var(--gradient-metal)",
+                  }}
+                />
+
+                <div className="relative z-10">
+                  {/* Icon */}
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-110"
+                    style={{
+                      background: "var(--accent-muted)",
+                      border: "1px solid var(--border-light)",
+                    }}
+                  >
+                    <Icon size={24} style={{ color: "var(--accent)" }} />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-sm sm:text-base font-medium text-primary tracking-wide">
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-muted group-hover:text-secondary transition-colors duration-300">
+                    {item.description}
+                  </p>
+
+                  {/* Active indicator */}
+                  <div
+                    className={`mt-4 h-px transition-all duration-500 ${
+                      activeIndex === index
+                        ? "w-full opacity-100"
+                        : "w-0 opacity-0"
+                    }`}
+                    style={{
+                      background: "var(--gradient-accent)",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 const CTA_MAGNETIC_MULTIPLIER = 0.22;
 const HERO_LINE_DURATION = 0.7;
@@ -116,7 +183,7 @@ function Loader({ onComplete }) {
   return (
     <div
       ref={loaderRef}
-      className="fixed inset-0 bg-light z-[200] flex items-center justify-center"
+      className="fixed inset-0 bg-darker z-[200] flex items-center justify-center"
     >
       <div className="text-center">
         <div
@@ -132,8 +199,8 @@ function Loader({ onComplete }) {
                   char === " "
                     ? "transparent"
                     : i < 6
-                      ? "var(--primary)"
-                      : "var(--secondary)",
+                      ? "var(--text-primary)"
+                      : "var(--text-secondary)",
                 width: char === " " ? "0.4em" : "auto",
               }}
             >
@@ -151,47 +218,6 @@ function Loader({ onComplete }) {
         <p className="text-[10px] tracking-[0.25em] text-muted mt-4 font-light">
           ENGINEERING SCALABLE SYSTEMS
         </p>
-      </div>
-    </div>
-  );
-}
-
-function TechStack({ activeIndex, setActiveIndex }) {
-  return (
-    <div className="tech-stack absolute bottom-10 sm:bottom-12 md:bottom-14 left-0 right-0 px-4">
-      <div className="flex flex-wrap justify-center gap-4 sm:gap-5 lg:gap-8 max-w-6xl mx-auto">
-        {techStack.map((tech, index) => {
-          const Icon = tech.icon;
-
-          return (
-            <div
-              key={tech.name}
-              className="tech-item group relative opacity-0 cursor-pointer"
-              onMouseEnter={() => setActiveIndex(index)}
-              onMouseLeave={() => setActiveIndex(null)}
-            >
-              <div className="flex flex-col items-center">
-                <Icon
-                  size={18}
-                  className="transition-transform duration-300 group-hover:scale-110"
-                  style={{ color: tech.color }}
-                />
-
-                <span className="mt-1 text-[10px] sm:text-xs tracking-wider text-muted group-hover:text-secondary transition-colors duration-300">
-                  {tech.name}
-                </span>
-
-                <span
-                  className={`absolute -top-5 left-1/2 -translate-x-1/2 text-[9px] text-muted/60 whitespace-nowrap transition-opacity duration-300 ${
-                    activeIndex === index ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  {tech.category}
-                </span>
-              </div>
-            </div>
-          );
-        })}
       </div>
     </div>
   );
@@ -395,7 +421,7 @@ export default function HomeHero() {
   }, [isReady]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-light">
+    <div className="relative min-h-screen overflow-hidden bg-darker">
       {!isReady && <Loader onComplete={() => setIsReady(true)} />}
 
       <section
@@ -404,7 +430,7 @@ export default function HomeHero() {
       >
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-matte">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black,transparent)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black,transparent)]" />
 
           <div className="floating-orb-1 parallax-layer-1 absolute -top-24 -right-24 w-[320px] md:w-[420px] h-[320px] md:h-[420px] bg-accent/5 rounded-full blur-3xl" />
 
@@ -412,92 +438,102 @@ export default function HomeHero() {
         </div>
 
         {/* Main content */}
-        <div className="relative z-10 min-h-screen flex items-center px-4 sm:px-6 lg:px-10 py-12">
-          <div className="max-w-7xl mx-auto w-full">
-            {/* Pre title */}
-            <div className="hero-pre-title inline-flex items-center gap-3 mb-6 opacity-0">
-              <div
-                className="w-10 h-px"
-                style={{
-                  background: "var(--accent)",
-                }}
-              />
+        <div className="relative z-10 min-h-screen flex flex-col justify-between px-4 sm:px-6 lg:px-10 pt-20 pb-10">
+          <div className="flex-1 flex items-center">
+            <div className="max-w-7xl mx-auto w-full">
+              {/* Pre title */}
+              <div className="hero-pre-title inline-flex items-center gap-3 mb-6 opacity-0">
+                <div
+                  className="w-10 h-px"
+                  style={{
+                    background: "var(--accent)",
+                  }}
+                />
 
-              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-muted font-normal">
-                VISHAL SINGH — Full Stack Developer
-              </span>
-            </div>
-
-            {/* Headline */}
-            <h1 className="mb-8">
-              <span className="hero-line block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[1.02] tracking-tight text-primary font-light opacity-0">
-                DIGITAL
-              </span>
-
-              <span className="hero-line block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[1.02] tracking-tight font-light opacity-0">
-                <span className="text-secondary relative inline-block">
-                  CRAFTSMANSHIP
-                  <span className="absolute left-0 -bottom-2 w-1/3 h-px bg-gradient-to-r from-border-medium to-transparent" />
+                <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-muted font-normal">
+                  VISHAL SINGH — Full Stack Developer
                 </span>
-              </span>
-            </h1>
+              </div>
+              {/* Headline */}
+              <h1 className="mb-8">
+                <span className="hero-line block text-5xl sm:text-6xl md:text-6xl lg:text-6xl xl:text-7xl leading-[1.02] tracking-tight text-primary font-light opacity-0">
+                  DESIGNING
+                </span>
 
-            {/* Description */}
-            <div className="hero-description opacity-0">
-              <p className="max-w-2xl text-sm sm:text-base md:text-lg text-secondary leading-relaxed font-light">
-                I design and build high-performance backend systems, real-time
-                APIs, and AI-powered infrastructure focused on scalability,
-                reliability, and production use.
-              </p>
-            </div>
+                <span className="hero-line block text-5xl sm:text-6xl md:text-6xl lg:text-6xl xl:text-7xl leading-[1.02] tracking-tight font-light opacity-0">
+                  <span className="text-secondary relative inline-block">
+                    & BUILDING SOFTWARE
+                    <span className="absolute left-0 -bottom-2 w-1/3 h-px bg-gradient-to-r from-border-medium to-transparent" />
+                  </span>
+                </span>
+              </h1>
+              {/* Description */}
+              <div className="hero-description opacity-0">
+                <p className="max-w-2xl text-sm sm:text-base md:text-lg text-secondary leading-relaxed font-light">
+                  I enjoy building fast, reliable web applications and backend
+                  systems that solve real problems.
+                </p>
+              </div>
+              {/* CTA */}
+              <div className="hero-cta-wrapper mt-10 flex flex-col sm:flex-row gap-4 opacity-0">
+                <button
+                  ref={ctaRef}
+                  onClick={handleLaunch}
+                  className="group relative overflow-hidden rounded-full px-7 py-4 min-h-[48px] transition-all focus:outline-none focus:ring-2 focus:ring-accent/40"
+                  style={{
+                    background: "var(--gradient-accent)",
+                    color: "var(--bg-darker)",
+                    boxShadow: "var(--shadow-glow)",
+                  }}
+                >
+                  <span className="relative z-10 flex items-center gap-2 text-sm tracking-wide font-medium">
+                    <span className="transition-transform duration-300 group-hover:-translate-x-1">
+                      VIEW WORK
+                    </span>
 
-            {/* CTA */}
-            <div className="hero-cta-wrapper mt-10 flex flex-col sm:flex-row gap-4 opacity-0">
-              <button
-                ref={ctaRef}
-                onClick={handleLaunch}
-                className="group relative overflow-hidden rounded-full px-7 py-4 min-h-[48px] transition-all focus:outline-none focus:ring-2 focus:ring-accent/40"
-                style={{
-                  background: "var(--accent)",
-                  color: "var(--bg-dark)",
-                  boxShadow: "0 0 24px var(--accent-muted)",
-                }}
-              >
-                <span className="relative z-10 flex items-center gap-2 text-sm tracking-wide font-medium">
-                  <span className="transition-transform duration-300 group-hover:-translate-x-1">
-                    VIEW WORK
+                    <ArrowRight
+                      size={16}
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    />
+                  </span>
+                </button>
+
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById("about")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  className="group flex items-center gap-2 rounded-full border px-6 py-4 min-h-[48px] transition-all duration-300"
+                  style={{
+                    borderColor: "var(--border-light)",
+                    color: "var(--text-muted)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "var(--border-medium)";
+                    e.currentTarget.style.color = "var(--text-secondary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "var(--border-light)";
+                    e.currentTarget.style.color = "var(--text-muted)";
+                  }}
+                >
+                  <span className="text-sm tracking-wide font-light">
+                    LEARN MORE
                   </span>
 
-                  <ArrowRight
+                  <ArrowDown
                     size={16}
-                    className="transition-transform duration-300 group-hover:translate-x-1"
+                    className="opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
                   />
-                </span>
-              </button>
-
-              <button
-                onClick={() =>
-                  document
-                    .getElementById("about")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="group flex items-center gap-2 rounded-full border border-border-light/20 px-6 py-4 min-h-[48px] text-muted hover:text-secondary hover:border-border-light/40 transition-all duration-300"
-              >
-                <span className="text-sm tracking-wide font-light">
-                  LEARN MORE
-                </span>
-
-                <ArrowDown
-                  size={16}
-                  className="opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
-                />
-              </button>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Tech stack */}
-        <TechStack activeIndex={activeTech} setActiveIndex={setActiveTech} />
+        <Expertise activeIndex={activeTech} setActiveIndex={setActiveTech} />
 
         {/* Scroll indicator */}
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 opacity-60">

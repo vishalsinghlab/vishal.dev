@@ -41,7 +41,7 @@ export default function LoginModal({ onClose, onSuccess }) {
     <div
       className="fixed inset-0 z-[9999] flex items-center justify-center px-4"
       style={{
-        background: "rgba(10,10,10,0.75)",
+        background: "var(--overlay-dark)",
         backdropFilter: "blur(16px)",
       }}
     >
@@ -53,13 +53,9 @@ export default function LoginModal({ onClose, onSuccess }) {
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="relative w-full max-w-sm rounded-3xl p-6 overflow-hidden"
         style={{
-          background:
-            "linear-gradient(145deg, var(--bg-light), var(--bg-darker))",
-          border: "1px solid rgba(255,255,255,0.06)",
-          boxShadow: `
-            inset 0 1px 0 rgba(255,255,255,0.06),
-            0 40px 100px -20px rgba(0,0,0,0.8)
-          `,
+          background: "var(--gradient-metal)",
+          border: "1px solid var(--border-light)",
+          boxShadow: "var(--shadow-xl)",
         }}
       >
         {/* Subtle glow layer */}
@@ -67,7 +63,7 @@ export default function LoginModal({ onClose, onSuccess }) {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle at 20% 0%, rgba(255,255,255,0.08), transparent 40%)",
+              "radial-gradient(circle at 20% 0%, var(--accent-muted), transparent 40%)",
           }}
         />
 
@@ -75,7 +71,7 @@ export default function LoginModal({ onClose, onSuccess }) {
         <div
           className="absolute inset-0 rounded-3xl pointer-events-none"
           style={{
-            border: "1px solid rgba(255,255,255,0.04)",
+            border: "1px solid var(--border-light)",
           }}
         />
 
@@ -84,6 +80,12 @@ export default function LoginModal({ onClose, onSuccess }) {
           onClick={onClose}
           className="absolute top-4 right-5 text-xl transition hover:opacity-80"
           style={{ color: "var(--text-muted)" }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.color = "var(--text-primary)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.color = "var(--text-muted)")
+          }
         >
           ×
         </button>
@@ -105,9 +107,9 @@ export default function LoginModal({ onClose, onSuccess }) {
               exit={{ opacity: 0 }}
               className="mb-5 text-sm text-center rounded-lg px-4 py-2"
               style={{
-                background: "rgba(255,255,255,0.05)",
+                background: "var(--accent-muted)",
                 color: "var(--text-secondary)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                border: "1px solid var(--border-light)",
               }}
             >
               {error}
@@ -125,9 +127,15 @@ export default function LoginModal({ onClose, onSuccess }) {
               required
               className="w-full px-4 pt-5 pb-2 rounded-xl outline-none transition"
               style={{
-                background: "var(--bg-darker)",
+                background: "var(--input-bg)",
                 color: "var(--text-primary)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                border: "1px solid var(--input-border)",
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = "var(--accent)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "var(--input-border)";
               }}
             />
 
@@ -161,9 +169,15 @@ export default function LoginModal({ onClose, onSuccess }) {
               required
               className="w-full px-4 pt-5 pb-2 rounded-xl outline-none transition pr-10"
               style={{
-                background: "var(--bg-darker)",
+                background: "var(--input-bg)",
                 color: "var(--text-primary)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                border: "1px solid var(--input-border)",
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = "var(--accent)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "var(--input-border)";
               }}
             />
 
@@ -183,8 +197,14 @@ export default function LoginModal({ onClose, onSuccess }) {
             <button
               type="button"
               onClick={() => setShowPass(!showPass)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 hover:opacity-80"
+              className="absolute right-3 top-1/2 -translate-y-1/2 hover:opacity-80 transition-opacity"
               style={{ color: "var(--text-muted)" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "var(--text-primary)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "var(--text-muted)")
+              }
             >
               {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
@@ -203,9 +223,15 @@ export default function LoginModal({ onClose, onSuccess }) {
             type="submit"
             className="w-full py-2.5 rounded-full transition active:scale-[0.97]"
             style={{
-              background: "var(--accent)",
-              color: "#000",
-              boxShadow: "0 10px 30px rgba(255,255,255,0.15)",
+              background: "var(--gradient-accent)",
+              color: "var(--bg-darker)",
+              boxShadow: "var(--shadow-glow)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "var(--shadow-md)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "var(--shadow-glow)";
             }}
           >
             Continue

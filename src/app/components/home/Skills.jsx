@@ -166,13 +166,13 @@ export default function TechStack() {
     >
       {/* Animated Background Elements */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        {/* Base gradient */}
+        {/* Base gradient - removed blue/purple gradients, using metallic accents */}
         <div
           className="absolute inset-0"
           style={{
             background: `
               radial-gradient(circle at 30% 20%, var(--accent-muted), transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(96, 165, 250, 0.08), transparent 50%),
+              radial-gradient(circle at 80% 70%, var(--accent-muted), transparent 50%),
               linear-gradient(135deg, var(--bg-dark), var(--bg-darker))
             `,
           }}
@@ -191,13 +191,13 @@ export default function TechStack() {
           }}
         />
 
-        {/* Floating gradient orbs */}
+        {/* Floating gradient orbs - using metallic accents */}
         <div
           ref={(el) => (floatingOrbsRef.current[0] = el)}
           className="absolute -top-40 -right-40 w-96 h-96 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(124, 197, 184, 0.15), transparent 70%)",
+              "radial-gradient(circle, var(--accent-muted), transparent 70%)",
             filter: "blur(60px)",
           }}
         />
@@ -206,7 +206,7 @@ export default function TechStack() {
           className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(96, 165, 250, 0.12), transparent 70%)",
+              "radial-gradient(circle, var(--accent-muted), transparent 70%)",
             filter: "blur(60px)",
           }}
         />
@@ -215,7 +215,7 @@ export default function TechStack() {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(167, 139, 250, 0.08), transparent 70%)",
+              "radial-gradient(circle, var(--accent-muted), transparent 70%)",
             filter: "blur(80px)",
           }}
         />
@@ -232,7 +232,11 @@ export default function TechStack() {
             <span className="text-xs md:text-sm tracking-[0.3em] text-muted font-medium uppercase">
               EXPERTISE
             </span>
-            <Sparkles size={14} className="text-accent animate-pulse" />
+            <Sparkles
+              size={14}
+              style={{ color: "var(--accent)" }}
+              className="animate-pulse"
+            />
           </div>
 
           <div className="overflow-hidden">
@@ -243,8 +247,7 @@ export default function TechStack() {
                     key={i}
                     className="header-char inline-block"
                     style={{
-                      background:
-                        "linear-gradient(135deg, var(--text-primary), var(--text-secondary))",
+                      background: "var(--gradient-text)",
                       backgroundClip: "text",
                       WebkitBackgroundClip: "text",
                       color: "transparent",
@@ -260,8 +263,7 @@ export default function TechStack() {
                     key={i}
                     className="header-char inline-block"
                     style={{
-                      background:
-                        "linear-gradient(135deg, var(--accent), var(--accent-secondary))",
+                      background: "var(--gradient-text)",
                       backgroundClip: "text",
                       WebkitBackgroundClip: "text",
                       color: "transparent",
@@ -281,7 +283,10 @@ export default function TechStack() {
               production environments.
             </p>
             <div className="absolute -top-10 -right-10 w-20 h-20 opacity-20">
-              <Zap className="w-full h-full text-accent" />
+              <Zap
+                className="w-full h-full"
+                style={{ color: "var(--accent)" }}
+              />
             </div>
           </div>
         </div>
@@ -310,11 +315,10 @@ export default function TechStack() {
             >
               {/* Card Background with Gradient */}
               <div
-                className="absolute inset-0"
+                className="absolute inset-0 rounded-2xl"
                 style={{
                   background: "var(--gradient-metal)",
                   border: "1px solid var(--border-light)",
-                  borderRadius: "1rem",
                 }}
               />
 
@@ -362,10 +366,8 @@ export default function TechStack() {
                   <div>
                     <h3 className="text-lg md:text-xl font-semibold tracking-wide">
                       <span
-                        className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
                         style={{
-                          backgroundImage:
-                            "linear-gradient(135deg, var(--text-primary), var(--accent))",
+                          background: "var(--gradient-text)",
                           WebkitBackgroundClip: "text",
                           backgroundClip: "text",
                           color: "transparent",
@@ -375,8 +377,11 @@ export default function TechStack() {
                       </span>
                     </h3>
                     <div className="flex items-center gap-1 mt-1">
-                      <Boxes size={12} className="text-muted" />
-                      <span className="text-xs text-muted">
+                      <Boxes size={12} style={{ color: "var(--text-muted)" }} />
+                      <span
+                        className="text-xs"
+                        style={{ color: "var(--text-muted)" }}
+                      >
                         {category.skills.length} technologies
                       </span>
                     </div>
@@ -390,7 +395,7 @@ export default function TechStack() {
                       <div
                         className="relative flex flex-col items-center gap-2 p-3 rounded-xl transition-all duration-300 cursor-pointer overflow-hidden"
                         style={{
-                          background: "rgba(0, 0, 0, 0.2)",
+                          background: "var(--input-bg)",
                           border: `1px solid ${
                             hoveredCategory === idx
                               ? "var(--border-medium)"
@@ -425,16 +430,23 @@ export default function TechStack() {
 
                         {/* Skill name */}
                         <span
-                          className="relative z-10 text-[10px] md:text-xs font-medium text-center transition-all duration-300 group-hover/skill:text-accent"
+                          className="relative z-10 text-[10px] md:text-xs font-medium text-center transition-all duration-300"
                           style={{ color: "var(--text-muted)" }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.color = "var(--accent)")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.color = "var(--text-muted)")
+                          }
                         >
                           {skill.name}
                         </span>
 
                         {/* Animated underline */}
                         <div
-                          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-accent to-transparent transition-all duration-300"
+                          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 transition-all duration-300"
                           style={{
+                            background: "var(--accent)",
                             width: hoveredCategory === idx ? "60%" : "0%",
                             opacity: hoveredCategory === idx ? 1 : 0,
                           }}
@@ -445,9 +457,14 @@ export default function TechStack() {
                 </div>
 
                 {/* Category Stats */}
-                <div className="mt-6 pt-4 border-t border-border-light">
+                <div
+                  className="mt-6 pt-4"
+                  style={{ borderTop: "1px solid var(--border-light)" }}
+                >
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-muted">Expertise Level</span>
+                    <span style={{ color: "var(--text-muted)" }}>
+                      Expertise Level
+                    </span>
                     <div className="flex gap-1">
                       {[1, 2, 3, 4].map((star) => (
                         <div
@@ -455,7 +472,7 @@ export default function TechStack() {
                           className="w-1.5 h-1.5 rounded-full"
                           style={{
                             background:
-                              star <= (category.skills.length % 3) + 1
+                              star <= (category.skills.length % 3) + 3
                                 ? "var(--accent)"
                                 : "var(--border-medium)",
                           }}
@@ -468,7 +485,10 @@ export default function TechStack() {
                 {/* Decorative elements */}
                 {!isMobile && hoveredCategory === idx && (
                   <div className="absolute -bottom-10 -right-10 w-32 h-32 opacity-20 animate-spin-slow">
-                    <Layers className="w-full h-full text-accent" />
+                    <Layers
+                      className="w-full h-full"
+                      style={{ color: "var(--accent)" }}
+                    />
                   </div>
                 )}
               </div>

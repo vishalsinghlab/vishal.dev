@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Briefcase, Shield, Zap, GitBranch, Cpu } from "lucide-react";
+import { Briefcase } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,74 +47,26 @@ const experiences = [
     highlight: "End-to-end delivery",
   },
 ];
-// Engineering principles
-const principles = [
-  {
-    icon: Shield,
-    title: "Idempotency-first",
-    description:
-      "Every write operation is replay-safe. No duplicate orders, ever.",
-  },
-  {
-    icon: GitBranch,
-    title: "Observable by design",
-    description: "Structured logs with trace IDs from day one. Debug at 3 AM.",
-  },
-  {
-    icon: Zap,
-    title: "Rate limit + retry",
-    description:
-      "Never fail silently. Exponential backoff with circuit breakers.",
-  },
-  {
-    icon: Cpu,
-    title: "Test state mutation",
-    description:
-      "Unit tests for business logic. Integration tests for contracts.",
-  },
-];
 
-// Key metrics from your resume
+// Key metrics
 const metrics = [
-  { value: "4+", label: "Years of experience", color: "#3B82F6" },
-  {
-    value: "10K+",
-    label: "Daily AI tool calls handled",
-    color: "#10B981",
-  },
-  {
-    value: "5K+",
-    label: "Requests/min supported (webhooks)",
-    color: "#06B6D4",
-  },
-  {
-    value: "92%",
-    label: "RAG retrieval success rate",
-    color: "#8B5CF6",
-  },
-  {
-    value: "$1M",
-    label: "Winning product (Kiddie Kredit)",
-    color: "#EC4899",
-  },
-  {
-    value: "190+",
-    label: "Countries supported (RomeSIM)",
-    color: "#F59E0B",
-  },
+  { value: "4+", label: "Years of experience" },
+  { value: "10K+", label: "Daily AI tool calls handled" },
+  { value: "5K+", label: "Requests/min supported (webhooks)" },
+  { value: "92%", label: "RAG retrieval success rate" },
+  { value: "$1M", label: "Winning product (Kiddie Kredit)" },
+  { value: "190+", label: "Countries supported (RomeSIM)" },
 ];
 
 export default function About() {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
   const metricsRef = useRef(null);
-  const principlesRef = useRef(null);
   const timelineRef = useRef(null);
 
-  // State for counter animation
   const [counters, setCounters] = useState(metrics.map(() => "0"));
 
-  // Counter animation effect using IntersectionObserver
+  // Counter animation effect
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -170,7 +122,6 @@ export default function About() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
-      // Fade-in content
       gsap.fromTo(
         ".fade-up",
         { y: 40, opacity: 0 },
@@ -190,11 +141,9 @@ export default function About() {
     }, sectionRef);
 
     return () => {
-      // Clean up ScrollTriggers
       ScrollTrigger.getAll().forEach((trigger) => {
         if (
           trigger.vars?.trigger === contentRef.current ||
-          trigger.vars?.trigger === principlesRef.current ||
           trigger.vars?.trigger === timelineRef.current
         ) {
           trigger.kill();
@@ -250,15 +199,16 @@ export default function About() {
           <h2 className="text-5xl md:text-6xl lg:text-7xl tracking-tight">
             <span className="text-primary font-light">Systems you can</span>
             <br />
-            <span className="text-accent font-medium">depend on.</span>
+            <span className="font-medium" style={{ color: "var(--accent)" }}>
+              depend on.
+            </span>
           </h2>
         </header>
 
         {/* Two-column layout */}
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* LEFT COLUMN: Bio + Principles */}
+          {/* LEFT COLUMN: Bio */}
           <div>
-            {/* Profile + short bio */}
             <div className="fade-up opacity-0">
               <figure className="relative w-24 h-24 mb-6">
                 <div
@@ -299,14 +249,42 @@ export default function About() {
                 practices.
               </p>
             </div>
+
+            {/* Metrics Grid */}
+            <div ref={metricsRef} className="fade-up opacity-0 mt-8">
+              <h3 className="text-sm font-medium text-muted uppercase tracking-wider mb-5">
+                Key Metrics
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {metrics.map((metric, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-lg"
+                    style={{
+                      background: "var(--bg-light)",
+                      border: "1px solid var(--border-light)",
+                    }}
+                  >
+                    <div
+                      className="text-2xl font-bold"
+                      style={{ color: "var(--accent)" }}
+                    >
+                      {counters[idx]}
+                    </div>
+                    <div className="text-xs text-muted mt-1">
+                      {metric.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* RIGHT COLUMN: Metrics + Experience */}
+          {/* RIGHT COLUMN: Experience */}
           <div>
-            {/* Timeline */}
             <div ref={timelineRef} className="fade-up opacity-0">
               <h3 className="text-sm font-medium text-muted uppercase tracking-wider mb-5 flex items-center gap-2">
-                <Briefcase size={14} className="text-accent" />
+                <Briefcase size={14} style={{ color: "var(--accent)" }} />
                 Experience
               </h3>
               <div className="space-y-6">
@@ -336,7 +314,7 @@ export default function About() {
                       <span
                         className="text-[9px] px-1.5 py-0.5 rounded"
                         style={{
-                          background: "rgba(59, 130, 246, 0.1)",
+                          background: "var(--accent-muted)",
                           color: "var(--accent)",
                         }}
                       >
@@ -348,11 +326,11 @@ export default function About() {
               </div>
             </div>
 
-            {/* CTA to case studies */}
+            {/* CTA */}
             <div className="fade-up opacity-0 mt-8">
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 text-sm transition-all"
+                className="inline-flex items-center gap-2 text-sm transition-all group"
                 style={{ color: "var(--accent)" }}
               >
                 <span>View detailed case studies</span>

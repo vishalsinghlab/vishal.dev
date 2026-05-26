@@ -20,7 +20,7 @@ export default function BackButton({ label = "Back" }) {
       onClick={() => router.back()}
       className="
         fixed z-[9999]
-        top-3 right-3
+        top-3 left-3
         md:left-6 md:right-auto
         flex items-center gap-2
         px-4 py-2.5

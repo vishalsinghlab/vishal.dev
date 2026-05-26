@@ -24,15 +24,11 @@ export default function Footer() {
       icon: <FaGithub className="w-5 h-5" />,
       href: "https://github.com/vishalsinghlab",
       label: "GitHub",
-      color: "hover:text-gray-300",
-      bgHover: "hover:bg-gray-800",
     },
     {
       icon: <FaLinkedin className="w-5 h-5" />,
       href: "https://linkedin.com/in/vishal-singh-b57b7b109",
       label: "LinkedIn",
-      color: "hover:text-blue-400",
-      bgHover: "hover:bg-blue-900/20",
     },
   ];
 
@@ -106,11 +102,23 @@ export default function Footer() {
           color: "var(--text-primary)",
         }}
       >
-        {/* Animated Background Gradient */}
-        <div className="absolute inset-0 opacity-30">
+        {/* Animated Background - Removed purple/blue gradients, using metallic accents */}
+        <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-pulse" />
-          <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-transparent rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-l from-blue-500/10 to-transparent rounded-full blur-3xl animate-pulse delay-1000" />
+          <div
+            className="absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl animate-pulse"
+            style={{
+              background:
+                "radial-gradient(circle, var(--accent-muted), transparent)",
+            }}
+          />
+          <div
+            className="absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000"
+            style={{
+              background:
+                "radial-gradient(circle, var(--accent-muted), transparent)",
+            }}
+          />
         </div>
 
         <div className="relative px-4 sm:px-6 md:px-12 lg:px-24 py-16 sm:py-20 md:py-24">
@@ -121,7 +129,7 @@ export default function Footer() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
             >
-              {/* Brand Section - Enhanced */}
+              {/* Brand Section */}
               <motion.div
                 className="lg:col-span-4 space-y-4"
                 variants={itemVariant}
@@ -137,7 +145,13 @@ export default function Footer() {
                   >
                     <span className="relative z-10 text-3xl sm:text-4xl font-light tracking-tight">
                       <span style={{ color: "var(--text-muted)" }}>{"<"}</span>
-                      <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+                      <span
+                        className="bg-clip-text text-transparent"
+                        style={{
+                          background: "var(--gradient-text)",
+                          WebkitBackgroundClip: "text",
+                        }}
+                      >
                         VS
                       </span>
                       <span style={{ color: "var(--text-muted)" }}>{"/>"}</span>
@@ -160,14 +174,20 @@ export default function Footer() {
                   variants={itemVariant}
                 >
                   <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60" />
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                    <span
+                      className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
+                      style={{ background: "var(--accent)" }}
+                    />
+                    <span
+                      className="relative inline-flex rounded-full h-2.5 w-2.5"
+                      style={{ background: "var(--accent)" }}
+                    />
                   </span>
                   <span className="font-medium">Available for work</span>
                 </motion.div>
               </motion.div>
 
-              {/* Navigation - Enhanced */}
+              {/* Navigation */}
               <motion.div className="lg:col-span-3" variants={itemVariant}>
                 <h3
                   className="text-xs tracking-[0.3em] mb-6 font-semibold"
@@ -188,16 +208,31 @@ export default function Footer() {
                       >
                         <div className="flex items-center gap-2">
                           <span
-                            className="text-sm font-medium transition-colors group-hover:text-white"
+                            className="text-sm font-medium transition-colors"
                             style={{ color: "var(--text-secondary)" }}
+                            onMouseEnter={(e) =>
+                              (e.currentTarget.style.color =
+                                "var(--text-primary)")
+                            }
+                            onMouseLeave={(e) =>
+                              (e.currentTarget.style.color =
+                                "var(--text-secondary)")
+                            }
                           >
                             {link.name}
                           </span>
                           <FiArrowUpRight className="opacity-0 group-hover:opacity-100 transition-all text-xs -translate-y-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </div>
                         <span
-                          className="text-[11px] transition-colors group-hover:text-white/60"
+                          className="text-[11px] transition-colors"
                           style={{ color: "var(--text-muted)" }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.color =
+                              "var(--text-secondary)")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.color = "var(--text-muted)")
+                          }
                         >
                           {link.description}
                         </span>
@@ -211,7 +246,7 @@ export default function Footer() {
                 </ul>
               </motion.div>
 
-              {/* Contact - Enhanced */}
+              {/* Contact */}
               <motion.div className="lg:col-span-3" variants={itemVariant}>
                 <h3
                   className="text-xs tracking-[0.3em] mb-6 font-semibold"
@@ -248,7 +283,7 @@ export default function Footer() {
                 </div>
               </motion.div>
 
-              {/* Stats - Enhanced */}
+              {/* Stats */}
               <motion.div className="lg:col-span-2" variants={itemVariant}>
                 <h3
                   className="text-xs tracking-[0.3em] mb-6 font-semibold"
@@ -265,7 +300,13 @@ export default function Footer() {
                       whileHover={{ scale: 1.05, y: -2 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <div className="text-2xl font-light tracking-tight bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
+                      <div
+                        className="text-2xl font-light tracking-tight bg-clip-text text-transparent"
+                        style={{
+                          background: "var(--gradient-text)",
+                          WebkitBackgroundClip: "text",
+                        }}
+                      >
                         {stat.value}
                       </div>
                       <div
@@ -281,7 +322,7 @@ export default function Footer() {
               </motion.div>
             </motion.div>
 
-            {/* Bottom Section - Enhanced */}
+            {/* Bottom Section */}
             <motion.div
               className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left"
               style={{ borderTop: "1px solid var(--border-light)" }}
@@ -297,7 +338,7 @@ export default function Footer() {
                 © 2023 VISHAL SINGH. All rights reserved.
               </motion.div>
 
-              {/* Social Links - Enhanced */}
+              {/* Social Links */}
               <motion.div className="flex gap-3" variants={itemVariant}>
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -312,14 +353,21 @@ export default function Footer() {
                     aria-label={social.label}
                   >
                     <div
-                      className={`p-2.5 rounded-full transition-all duration-300 ${social.bgHover}`}
+                      className="p-2.5 rounded-full transition-all duration-300"
                       style={{
                         background: "var(--gradient-metal)",
                         border: "1px solid var(--border-light)",
                       }}
                     >
                       <div
-                        className={`text-sm transition-colors duration-300 ${social.color}`}
+                        className="text-sm transition-colors duration-300"
+                        style={{ color: "var(--accent)" }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color = "var(--accent-light)")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color = "var(--accent)")
+                        }
                       >
                         {social.icon}
                       </div>
@@ -334,15 +382,27 @@ export default function Footer() {
               <motion.div className="flex gap-4" variants={itemVariant}>
                 <Link
                   href="/privacy"
-                  className="text-[10px] hover:text-white transition-colors"
+                  className="text-[10px] transition-colors"
                   style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--text-primary)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   href="/terms"
-                  className="text-[10px] hover:text-white transition-colors"
+                  className="text-[10px] transition-colors"
                   style={{ color: "var(--text-muted)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--text-primary)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--text-muted)")
+                  }
                 >
                   Terms of Use
                 </Link>

@@ -21,12 +21,10 @@ const ContactMethodCard = ({ type, value, description, Icon, isMobile }) => {
   return (
     <div
       ref={cardRef}
-      className="contact-method group rounded-2xl p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent"
+      className="contact-method group rounded-2xl p-4 sm:p-6 transition-all duration-300 focus:outline-none focus:ring-2"
       style={{
         background: "var(--gradient-metal)",
         border: "1px solid var(--border-light)",
-        // boxShadow:
-        //   "inset 0 1px 0 var(--border-light), 0 10px 25px rgba(0,0,0,0.8)",
         transform: "translateZ(0)",
         WebkitTapHighlightColor: "transparent",
       }}
@@ -41,7 +39,8 @@ const ContactMethodCard = ({ type, value, description, Icon, isMobile }) => {
           style={{ background: "var(--accent-muted)" }}
         >
           <Icon
-            className="w-4 h-4 sm:w-5 sm:h-5 text-secondary"
+            className="w-4 h-4 sm:w-5 sm:h-5"
+            style={{ color: "var(--accent)" }}
             aria-hidden="true"
           />
         </div>
@@ -245,8 +244,6 @@ export default function Contact() {
               style={{
                 background: "var(--gradient-metal)",
                 border: "1px solid var(--border-light)",
-                // boxShadow:
-                //   "inset 0 1px 0 var(--border-light), 0 15px 40px rgba(0,0,0,0.8)",
                 transform: "translateZ(0)",
               }}
             >
@@ -255,7 +252,13 @@ export default function Contact() {
               </h3>
 
               {submitSuccess && (
-                <div className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl text-secondary border border-border-light text-sm animate-fade-in">
+                <div
+                  className="mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl text-secondary text-sm animate-fade-in"
+                  style={{
+                    background: "var(--accent-muted)",
+                    border: "1px solid var(--border-light)",
+                  }}
+                >
                   Message sent successfully.
                 </div>
               )}
@@ -269,13 +272,22 @@ export default function Contact() {
                     value={formData[field]}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl outline-none text-sm sm:text-base"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl outline-none text-sm sm:text-base transition-all duration-200 focus:ring-1"
                     style={{
-                      background: "var(--accent-muted)",
-                      border: "1px solid var(--border-light)",
+                      background: "var(--input-bg)",
+                      border: "1px solid var(--input-border)",
                       color: "var(--text-primary)",
                       borderRadius: "12px",
                       WebkitAppearance: "none",
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "var(--accent)";
+                      e.target.style.boxShadow =
+                        "0 0 0 2px var(--input-focus-ring)";
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "var(--input-border)";
+                      e.target.style.boxShadow = "none";
                     }}
                     autoComplete={field === "email" ? "email" : "name"}
                     inputMode={field === "email" ? "email" : "text"}
@@ -289,12 +301,21 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl outline-none resize-none text-sm sm:text-base"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl outline-none resize-none text-sm sm:text-base transition-all duration-200 focus:ring-1"
                   style={{
-                    background: "var(--accent-muted)",
-                    border: "1px solid var(--border-light)",
+                    background: "var(--input-bg)",
+                    border: "1px solid var(--input-border)",
                     color: "var(--text-primary)",
                     borderRadius: "12px",
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "var(--accent)";
+                    e.target.style.boxShadow =
+                      "0 0 0 2px var(--input-focus-ring)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "var(--input-border)";
+                    e.target.style.boxShadow = "none";
                   }}
                 />
 
@@ -303,12 +324,10 @@ export default function Contact() {
                   disabled={isSubmitting}
                   className="w-full py-3 sm:py-4 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base font-medium transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:active:scale-100"
                   style={{
-                    background:
-                      "linear-gradient(145deg, var(--accent), var(--text-muted))",
-                    color: "var(--bg-dark)",
-                    // boxShadow:
-                    //   "inset 0 1px 0 rgba(255,255,255,0.5), 0 5px 20px var(--accent-muted)",
-                    WebkitTapHighlightColor: "transparent",
+                    background: "var(--gradient-accent)",
+                    color: "var(--bg-darker)",
+                    boxShadow: "var(--shadow-glow)",
+                    border: "1px solid rgba(255,255,255,0.15)",
                   }}
                 >
                   <Send size={isMobile ? 14 : 16} />

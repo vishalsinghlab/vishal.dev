@@ -7,6 +7,7 @@ import { ThemeContext } from "@/context/ThemeContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { SiGithub, SiLinkedin } from "react-icons/si";
+
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
@@ -82,15 +83,23 @@ function NavLink({ href, label, isActive, onClick, className = "" }) {
     <Link
       href={href}
       onClick={onClick}
-      className={`relative group tracking-wide transition-colors ${className} ${
-        active ? "text-white" : "text-gray-400 hover:text-white"
-      }`}
+      className={`relative group tracking-wide transition-colors ${className}`}
+      style={{
+        color: active ? "var(--text-primary)" : "var(--text-muted)",
+      }}
+      onMouseEnter={(e) => {
+        if (!active) e.currentTarget.style.color = "var(--text-primary)";
+      }}
+      onMouseLeave={(e) => {
+        if (!active) e.currentTarget.style.color = "var(--text-muted)";
+      }}
     >
       <span className="relative z-10">{label}</span>
       <span
-        className={`absolute -bottom-1 left-0 w-full h-px bg-white transform transition-transform duration-500 origin-left ${
+        className={`absolute -bottom-1 left-0 w-full h-px transform transition-transform duration-500 origin-left ${
           active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
         }`}
+        style={{ background: "var(--accent)" }}
       />
     </Link>
   );
@@ -100,7 +109,12 @@ function NavLink({ href, label, isActive, onClick, className = "" }) {
 function MobileMenuButton({ isOpen, onClick }) {
   return (
     <button
-      className="md:hidden text-white hover:text-gray-300 transition-colors"
+      className="md:hidden transition-colors"
+      style={{ color: "var(--text-primary)" }}
+      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent)")}
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.color = "var(--text-primary)")
+      }
       onClick={onClick}
       aria-label={isOpen ? "Close Menu" : "Open Menu"}
       aria-expanded={isOpen}
@@ -115,14 +129,18 @@ function Logo() {
   return (
     <Link
       href="/"
-      className="text-white text-2xl font-light tracking-tight relative group"
+      className="relative group"
+      style={{ color: "var(--text-primary)" }}
     >
-      <span className="relative z-10">
-        <span className="text-gray-400">{"<"}</span>
+      <span className="relative z-10 text-2xl font-light tracking-tight">
+        <span style={{ color: "var(--accent)" }}>{"<"}</span>
         dev
-        <span className="text-gray-400">{"/>"}</span>
+        <span style={{ color: "var(--accent)" }}>{"/>"}</span>
       </span>
-      <div className="absolute -inset-2 bg-white/5 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500" />
+      <div
+        className="absolute -inset-2 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500"
+        style={{ background: "var(--accent-muted)" }}
+      />
     </Link>
   );
 }
@@ -140,7 +158,8 @@ function MobileDrawer({ isOpen, onClose, navLinks, isActive }) {
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 backdrop-blur-lg"
+            className="absolute inset-0"
+            style={{ background: "var(--overlay-dark)" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -149,7 +168,11 @@ function MobileDrawer({ isOpen, onClose, navLinks, isActive }) {
 
           {/* Drawer */}
           <motion.div
-            className="absolute top-0 right-0 h-full w-[280px] bg-gradient-matte border-l border-gray-800 px-8 py-12 flex flex-col space-y-8 shadow-2xl"
+            className="absolute top-0 right-0 h-full w-[280px] px-8 py-12 flex flex-col space-y-8 shadow-2xl"
+            style={{
+              background: "var(--gradient-matte)",
+              borderLeft: "1px solid var(--border-light)",
+            }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -159,7 +182,13 @@ function MobileDrawer({ isOpen, onClose, navLinks, isActive }) {
             <div className="flex justify-end">
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-white"
+                style={{ color: "var(--text-muted)" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = "var(--text-primary)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "var(--text-muted)")
+                }
                 aria-label="Close Menu"
               >
                 <X size={24} />
@@ -167,10 +196,13 @@ function MobileDrawer({ isOpen, onClose, navLinks, isActive }) {
             </div>
 
             {/* Logo */}
-            <div className="text-white text-2xl font-light">
-              <span className="text-gray-600">{"<"}</span>
+            <div
+              className="text-2xl font-light"
+              style={{ color: "var(--text-primary)" }}
+            >
+              <span style={{ color: "var(--accent)" }}>{"<"}</span>
               dev
-              <span className="text-gray-600">{"/>"}</span>
+              <span style={{ color: "var(--accent)" }}>{"/>"}</span>
             </div>
 
             {/* Navigation links */}
@@ -180,30 +212,48 @@ function MobileDrawer({ isOpen, onClose, navLinks, isActive }) {
                   key={href}
                   href={href}
                   onClick={onClose}
-                  className={`relative group text-lg tracking-wide ${
-                    isActive(href)
-                      ? "text-white"
-                      : "text-gray-500 hover:text-gray-300"
-                  }`}
+                  className="relative group text-lg tracking-wide transition-all duration-300"
+                  style={{
+                    color: isActive(href)
+                      ? "var(--text-primary)"
+                      : "var(--text-muted)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive(href))
+                      e.currentTarget.style.color = "var(--text-primary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive(href))
+                      e.currentTarget.style.color = "var(--text-muted)";
+                  }}
                 >
                   <span className="relative z-10">{label}</span>
                   <span
                     className={`absolute -bottom-1 left-0 w-full h-px transform transition-transform duration-500 origin-left ${
                       isActive(href)
-                        ? "scale-x-100 bg-white"
-                        : "scale-x-0 bg-gray-600 group-hover:scale-x-100"
+                        ? "scale-x-100"
+                        : "scale-x-0 group-hover:scale-x-100"
                     }`}
+                    style={{ background: "var(--accent)" }}
                   />
                 </Link>
               ))}
             </div>
 
+            {/* Social links */}
             <div className="flex gap-6 pt-6">
               <a
                 href="https://github.com/vishalsinghlab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-white transition-colors"
+                className="transition-colors"
+                style={{ color: "var(--accent)" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = "var(--accent-light)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "var(--accent)")
+                }
               >
                 <SiGithub size={20} />
               </a>
@@ -212,15 +262,28 @@ function MobileDrawer({ isOpen, onClose, navLinks, isActive }) {
                 href="https://linkedin.com/in/vishal-singh-b57b7b109"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-white transition-colors"
+                className="transition-colors"
+                style={{ color: "var(--accent)" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = "var(--accent-light)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "var(--accent)")
+                }
               >
                 <SiLinkedin size={20} />
               </a>
             </div>
 
             {/* Decorative elements */}
-            <div className="absolute -bottom-20 -right-20 w-40 h-40 border border-gray-800 rounded-full opacity-20" />
-            <div className="absolute -top-20 -left-20 w-40 h-40 border border-gray-800 rounded-full opacity-20" />
+            <div
+              className="absolute -bottom-20 -right-20 w-40 h-40 rounded-full opacity-20"
+              style={{ border: "1px solid var(--border-light)" }}
+            />
+            <div
+              className="absolute -top-20 -left-20 w-40 h-40 rounded-full opacity-20"
+              style={{ border: "1px solid var(--border-light)" }}
+            />
           </motion.div>
         </motion.div>
       )}
@@ -279,7 +342,8 @@ export default function Navbar() {
         initial={false}
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed top-0 left-0 w-full z-50 mix-blend-difference"
+        className="fixed top-0 left-0 w-full z-50"
+        style={{ mixBlendMode: "difference" }}
       >
         <div className="flex flex-1 items-center justify-between px-8 py-6 max-w-7xl mx-auto">
           {/* Logo */}
@@ -302,7 +366,14 @@ export default function Navbar() {
                 aria-label="GitHub"
               >
                 <SiGithub
-                  className="text-gray-400 group-hover:text-white transition-all duration-300 group-hover:scale-110"
+                  className="transition-all duration-300 group-hover:scale-110"
+                  style={{ color: "var(--accent)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-light)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--accent)")
+                  }
                   size={18}
                 />
               </a>
@@ -315,7 +386,14 @@ export default function Navbar() {
                 aria-label="LinkedIn"
               >
                 <SiLinkedin
-                  className="text-gray-400 group-hover:text-white transition-all duration-300 group-hover:scale-110"
+                  className="transition-all duration-300 group-hover:scale-110"
+                  style={{ color: "var(--accent)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--accent-light)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--accent)")
+                  }
                   size={18}
                 />
               </a>
