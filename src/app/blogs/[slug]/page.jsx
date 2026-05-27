@@ -162,8 +162,17 @@ const BlogDetailPage = () => {
         style={{ background: "var(--gradient-matte)" }}
       >
         <div className="relative">
-          <div className="w-12 h-12 border-2 border-white/20 border-t-white/60 rounded-full animate-spin" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent blur-xl animate-pulse" />
+          <div
+            className="w-12 h-12 rounded-full animate-spin"
+            style={{
+              border: "2px solid var(--border-light)",
+              borderTopColor: "var(--accent)",
+            }}
+          />
+          <div
+            className="absolute inset-0 blur-xl animate-pulse"
+            style={{ background: "var(--accent-muted)" }}
+          />
         </div>
       </div>
     );
@@ -178,19 +187,21 @@ const BlogDetailPage = () => {
           color: "var(--text-primary)",
         }}
       >
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-white/90">
+        <h1
+          className="text-3xl sm:text-4xl font-bold mb-2"
+          style={{ color: "var(--text-primary)" }}
+        >
           404 — Not Found
         </h1>
-        <p className="text-white/50 mb-4">We couldn't find that blog.</p>
+        <p className="mb-4" style={{ color: "var(--text-muted)" }}>
+          We couldn't find that blog.
+        </p>
         <Link
           href="/blogs"
           className="px-4 py-2 rounded-full transition-all duration-300 hover:scale-[1.02] inline-flex items-center gap-2"
           style={{
-            background:
-              "linear-gradient(145deg, #2a2a2a, #1a1a1a 40%, #0f0f0f)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
+            background: "var(--gradient-metal)",
+            border: "1px solid var(--border-light)",
             color: "var(--accent)",
           }}
         >
@@ -222,12 +233,15 @@ const BlogDetailPage = () => {
       </div>
 
       {/* Blog Header */}
-      <h1 className="text-2xl sm:text-4xl font-light mb-2 break-words text-white/90">
+      <h1
+        className="text-2xl sm:text-4xl font-light mb-2 break-words"
+        style={{ color: "var(--text-primary)" }}
+      >
         {blog.title}
       </h1>
       <p
-        className="text-sm text-white/40 italic border-l-4 pl-3 mb-6"
-        style={{ borderLeftColor: "var(--accent)" }}
+        className="text-sm italic border-l-4 pl-3 mb-6"
+        style={{ color: "var(--text-muted)", borderLeftColor: "var(--accent)" }}
       >
         Published on {blog.date}
       </p>
@@ -238,12 +252,10 @@ const BlogDetailPage = () => {
         style={{
           background: "var(--gradient-metal)",
           border: "1px solid var(--border-light)",
-          // boxShadow:
-          //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
         }}
       >
         <article
-          className="prose max-w-none prose-pre:overflow-x-auto prose-pre:bg-[#0f0f0f] prose-pre:text-white/90 prose-pre:rounded-xl prose-pre:p-4 prose-img:rounded-xl break-words"
+          className="prose max-w-none prose-pre:overflow-x-auto prose-pre:rounded-xl prose-pre:p-4 prose-img:rounded-xl break-words"
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
       </div>
@@ -254,11 +266,12 @@ const BlogDetailPage = () => {
         style={{
           background: "var(--gradient-metal)",
           border: "1px solid var(--border-light)",
-          // boxShadow:
-          //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
         }}
       >
-        <h2 className="text-xl sm:text-2xl font-light mb-6 text-white/90">
+        <h2
+          className="text-xl sm:text-2xl font-light mb-6"
+          style={{ color: "var(--text-primary)" }}
+        >
           Comments ({comments.length})
         </h2>
 
@@ -269,19 +282,30 @@ const BlogDetailPage = () => {
                 key={comment._id}
                 className="rounded-xl p-4"
                 style={{
-                  background: "var(--gradient-metal)",
+                  background: "var(--bg-light)",
                   border: "1px solid var(--border-light)",
                 }}
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2 gap-2">
-                  <h3 className="font-medium text-sm text-white/80">
+                  <h3
+                    className="font-medium text-sm"
+                    style={{ color: "var(--text-primary)" }}
+                  >
                     {comment.name}
                   </h3>
-                  <span className="text-xs text-white/30">
+                  <span
+                    className="text-xs"
+                    style={{ color: "var(--text-muted)" }}
+                  >
                     {new Date(comment.createdAt).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="text-sm text-white/60">{comment.content}</p>
+                <p
+                  className="text-sm"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  {comment.content}
+                </p>
                 <button
                   className="mt-2 text-xs transition-colors hover:text-white/80"
                   style={{ color: "var(--accent)" }}
@@ -300,19 +324,30 @@ const BlogDetailPage = () => {
                         key={reply._id}
                         className="p-3 rounded-lg"
                         style={{
-                          background: "var(--gradient-metal)",
+                          background: "var(--bg-light)",
                           border: "1px solid var(--border-light)",
                         }}
                       >
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
-                          <span className="font-medium text-sm text-white/70">
+                          <span
+                            className="font-medium text-sm"
+                            style={{ color: "var(--text-secondary)" }}
+                          >
                             {reply.name}
                           </span>
-                          <span className="text-xs text-white/30">
+                          <span
+                            className="text-xs"
+                            style={{ color: "var(--text-muted)" }}
+                          >
                             {new Date(reply.createdAt).toLocaleDateString()}
                           </span>
                         </div>
-                        <p className="text-sm text-white/50">{reply.content}</p>
+                        <p
+                          className="text-sm"
+                          style={{ color: "var(--text-muted)" }}
+                        >
+                          {reply.content}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -334,6 +369,11 @@ const BlogDetailPage = () => {
                         value={replyName}
                         onChange={(e) => setReplyName(e.target.value)}
                         className="bg-white/5 border-white/10 text-white/90 placeholder:text-white/30"
+                        style={{
+                          background: "var(--input-bg)",
+                          borderColor: "var(--input-border)",
+                          color: "var(--text-primary)",
+                        }}
                       />
                       <Input
                         required
@@ -342,6 +382,11 @@ const BlogDetailPage = () => {
                         value={replyEmail}
                         onChange={(e) => setReplyEmail(e.target.value)}
                         className="bg-white/5 border-white/10 text-white/90 placeholder:text-white/30"
+                        style={{
+                          background: "var(--input-bg)",
+                          borderColor: "var(--input-border)",
+                          color: "var(--text-primary)",
+                        }}
                       />
                     </div>
                     <Textarea
@@ -351,12 +396,21 @@ const BlogDetailPage = () => {
                       value={replyContent}
                       onChange={(e) => setReplyContent(e.target.value)}
                       className="bg-white/5 border-white/10 text-white/90 placeholder:text-white/30"
+                      style={{
+                        background: "var(--input-bg)",
+                        borderColor: "var(--input-border)",
+                        color: "var(--text-primary)",
+                      }}
                     />
                     <div className="flex flex-col sm:flex-row gap-2">
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full sm:w-auto"
+                        className="w-full sm:w-auto cursor-pointer"
+                        style={{
+                          background: "var(--gradient-accent)",
+                          color: "var(--bg-darker)",
+                        }}
                       >
                         {isSubmitting ? "Replying..." : "Post Reply"}
                       </Button>
@@ -364,6 +418,8 @@ const BlogDetailPage = () => {
                         type="button"
                         variant="ghost"
                         onClick={() => setReplyingTo(null)}
+                        className="cursor-pointer"
+                        style={{ color: "var(--text-muted)" }}
                       >
                         Cancel
                       </Button>
@@ -374,7 +430,7 @@ const BlogDetailPage = () => {
             ))}
           </div>
         ) : (
-          <p className="text-white/40 italic">
+          <p className="italic" style={{ color: "var(--text-muted)" }}>
             No comments yet. Be the first to comment!
           </p>
         )}
@@ -386,8 +442,6 @@ const BlogDetailPage = () => {
         style={{
           background: "var(--gradient-metal)",
           border: "1px solid var(--border-light)",
-          // boxShadow:
-          //   "inset 0 1px 0 rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.8)",
         }}
       >
         <h2
@@ -404,6 +458,11 @@ const BlogDetailPage = () => {
               required
               placeholder="Your name"
               className="bg-white/5 border-white/10 text-white/90 placeholder:text-white/30"
+              style={{
+                background: "var(--input-bg)",
+                borderColor: "var(--input-border)",
+                color: "var(--text-primary)",
+              }}
             />
             <Input
               type="email"
@@ -412,6 +471,11 @@ const BlogDetailPage = () => {
               required
               placeholder="your@email.com"
               className="bg-white/5 border-white/10 text-white/90 placeholder:text-white/30"
+              style={{
+                background: "var(--input-bg)",
+                borderColor: "var(--input-border)",
+                color: "var(--text-primary)",
+              }}
             />
           </div>
           <Textarea
@@ -421,12 +485,69 @@ const BlogDetailPage = () => {
             required
             placeholder="Share your thoughts..."
             className="bg-white/5 border-white/10 text-white/90 placeholder:text-white/30"
+            style={{
+              background: "var(--input-bg)",
+              borderColor: "var(--input-border)",
+              color: "var(--text-primary)",
+            }}
           />
-          <Button type="submit" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="cursor-pointer"
+            style={{
+              background: "var(--gradient-accent)",
+              color: "var(--bg-darker)",
+            }}
+          >
             {isSubmitting ? "Posting..." : "Post Comment"}
           </Button>
         </form>
       </div>
+
+      {/* Global styles for prose content */}
+      <style jsx global>{`
+        .prose {
+          color: var(--text-secondary) !important;
+        }
+        .prose h1,
+        .prose h2,
+        .prose h3,
+        .prose h4 {
+          color: var(--text-primary) !important;
+        }
+        .prose p {
+          color: var(--text-secondary) !important;
+        }
+        .prose code {
+          color: var(--accent) !important;
+          background: var(--accent-muted) !important;
+        }
+        .prose pre {
+          background: var(--bg-darker) !important;
+          border: 1px solid var(--border-light) !important;
+        }
+        .prose blockquote {
+          border-left-color: var(--accent) !important;
+          color: var(--text-muted) !important;
+        }
+        .prose a {
+          color: var(--accent) !important;
+        }
+        .prose a:hover {
+          color: var(--accent-light) !important;
+        }
+        .prose strong {
+          color: var(--text-primary) !important;
+        }
+        .prose hr {
+          border-color: var(--border-light) !important;
+        }
+        .img-container-blog {
+          background: var(--bg-light) !important;
+          border: 1px solid var(--border-light) !important;
+        }
+      `}</style>
     </motion.div>
   );
 };

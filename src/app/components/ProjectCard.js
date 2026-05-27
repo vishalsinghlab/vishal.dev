@@ -119,8 +119,7 @@ export default function ProjectCard({
         style={{
           background: "var(--gradient-metal)",
           border: "1px solid var(--border-light)",
-          boxShadow:
-            "0 1px 1px rgba(255,255,255,0.04) inset, 0 20px 40px rgba(0,0,0,0.25)",
+          boxShadow: "var(--shadow-md)",
         }}
       >
         {/* Glow */}
@@ -128,7 +127,7 @@ export default function ProjectCard({
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{
             background:
-              "radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 45%)",
+              "radial-gradient(circle at top right, var(--accent-muted), transparent 45%)",
           }}
         />
 
@@ -160,7 +159,7 @@ export default function ProjectCard({
                 className="absolute inset-0 z-10"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.15), rgba(0,0,0,0.05))",
+                    "linear-gradient(to top, var(--overlay-dark), rgba(0,0,0,0.15), rgba(0,0,0,0.05))",
                 }}
               />
 
@@ -195,13 +194,19 @@ export default function ProjectCard({
             }}
             style={{
               background:
-                "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)",
+                "linear-gradient(105deg, transparent 40%, var(--accent-muted) 50%, transparent 60%)",
             }}
           />
 
           {/* Image Counter */}
           {hovered && images.length > 1 && (
-            <div className="absolute right-3 top-3 z-40 flex items-center gap-1 rounded-full border border-white/10 bg-black/40 px-2 py-1 backdrop-blur-md">
+            <div
+              className="absolute right-3 top-3 z-40 flex items-center gap-1 rounded-full px-2 py-1 backdrop-blur-md"
+              style={{
+                border: "1px solid var(--border-light)",
+                background: "var(--overlay-dark)",
+              }}
+            >
               {images.map((_, index) => (
                 <motion.div
                   key={index}
@@ -210,7 +215,8 @@ export default function ProjectCard({
                     opacity: index === currentImageIndex ? 1 : 0.4,
                   }}
                   transition={{ duration: 0.25 }}
-                  className="h-1.5 rounded-full bg-white"
+                  className="h-1.5 rounded-full"
+                  style={{ background: "var(--text-primary)" }}
                 />
               ))}
             </div>
@@ -223,7 +229,12 @@ export default function ProjectCard({
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
-                className="absolute bottom-3 left-3 z-40 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[10px] text-white/70 backdrop-blur-md"
+                className="absolute bottom-3 left-3 z-40 rounded-full px-2.5 py-1 text-[10px] backdrop-blur-md"
+                style={{
+                  border: "1px solid var(--border-light)",
+                  background: "var(--overlay-dark)",
+                  color: "var(--text-muted)",
+                }}
               >
                 Scrolling • {Math.round(scrollProgress)}%
               </motion.div>
@@ -255,7 +266,11 @@ export default function ProjectCard({
             <motion.div
               whileHover={{ rotate: 0 }}
               initial={{ rotate: -12 }}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 backdrop-blur-md"
+              className="flex h-10 w-10 items-center justify-center rounded-xl backdrop-blur-md"
+              style={{
+                border: "1px solid var(--border-light)",
+                background: "var(--bg-light)",
+              }}
             >
               <ArrowUpRight size={18} style={{ color: "var(--accent)" }} />
             </motion.div>
@@ -275,11 +290,11 @@ export default function ProjectCard({
               <motion.span
                 key={i}
                 whileHover={{ y: -2 }}
-                className="rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide backdrop-blur-md"
+                className="rounded-full px-3 py-1 text-[11px] font-medium tracking-wide backdrop-blur-md"
                 style={{
                   color: "var(--text-secondary)",
-                  background: "rgba(255,255,255,0.04)",
-                  borderColor: "var(--border-light)",
+                  background: "var(--bg-light)",
+                  border: "1px solid var(--border-light)",
                 }}
               >
                 {tag}
@@ -293,7 +308,6 @@ export default function ProjectCard({
             style={{ color: "var(--accent)" }}
           >
             <span>View Project</span>
-
             <ExternalLink size={14} className="opacity-80" />
           </div>
         </div>

@@ -251,7 +251,7 @@ export default function About() {
             </div>
 
             {/* Metrics Grid */}
-            <div ref={metricsRef} className="fade-up opacity-0 mt-8">
+            {/* <div ref={metricsRef} className="fade-up opacity-0 mt-8">
               <h3 className="text-sm font-medium text-muted uppercase tracking-wider mb-5">
                 Key Metrics
               </h3>
@@ -277,7 +277,7 @@ export default function About() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT COLUMN: Experience */}

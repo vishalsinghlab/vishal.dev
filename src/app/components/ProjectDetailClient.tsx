@@ -92,31 +92,31 @@ interface Project {
   results?: string[];
 }
 
-// Default metrics for projects
+// Default metrics for projects (colors removed, will use CSS vars)
 const defaultMetrics: Record<string, Metric[]> = {
   "koodums-chat": [
-    { value: "10K+", label: "Daily tool calls", color: "#10B981" },
-    { value: "<150ms", label: "Avg latency", color: "#F59E0B" },
-    { value: "40%", label: "Token reduction", color: "#8B5CF6" },
-    { value: "92%", label: "Retrieval rate", color: "#EC4899" },
+    { value: "10K+", label: "Daily tool calls" },
+    { value: "<150ms", label: "Avg latency" },
+    { value: "40%", label: "Token reduction" },
+    { value: "92%", label: "Retrieval rate" },
   ],
   investoreye: [
-    { value: "10K+", label: "Pages processed", color: "#10B981" },
-    { value: "92%", label: "Retrieval accuracy", color: "#8B5CF6" },
-    { value: "Real-time", label: "Sentiment analysis", color: "#F59E0B" },
-    { value: "SEC", label: "Filings", color: "#3B82F6" },
+    { value: "10K+", label: "Pages processed" },
+    { value: "92%", label: "Retrieval accuracy" },
+    { value: "Real-time", label: "Sentiment analysis" },
+    { value: "SEC", label: "Filings" },
   ],
   resiliq: [
-    { value: "5K+", label: "Req/min", color: "#10B981" },
-    { value: "Exactly-once", label: "Processing", color: "#F59E0B" },
-    { value: "HMAC", label: "Security", color: "#8B5CF6" },
-    { value: "409", label: "Conflict detection", color: "#EC4899" },
+    { value: "5K+", label: "Req/min" },
+    { value: "Exactly-once", label: "Processing" },
+    { value: "HMAC", label: "Security" },
+    { value: "409", label: "Conflict detection" },
   ],
   velotransact: [
-    { value: "Multi-role", label: "User types", color: "#10B981" },
-    { value: "Stripe", label: "Payments", color: "#8B5CF6" },
-    { value: "vAuto", label: "Inventory sync", color: "#F59E0B" },
-    { value: "Real-time", label: "Transactions", color: "#3B82F6" },
+    { value: "Multi-role", label: "User types" },
+    { value: "Stripe", label: "Payments" },
+    { value: "vAuto", label: "Inventory sync" },
+    { value: "Real-time", label: "Transactions" },
   ],
 };
 
@@ -161,88 +161,183 @@ export default function ProjectDetailClient({
   const results = project.results || defaultResults[project.slug];
 
   return (
-    <main className="min-h-screen bg-dark">
+    <main
+      className="min-h-screen"
+      style={{
+        background: "var(--gradient-matte)",
+        color: "var(--text-primary)",
+      }}
+    >
       {/* Hero Section - Full width with gradient */}
-      <div className="relative overflow-hidden border-b border-light">
+      <div
+        className="relative overflow-hidden"
+        style={{ borderBottom: "1px solid var(--border-light)" }}
+      >
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, var(--accent-muted), transparent, transparent)",
+          }}
+        />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-          {/* Title */}
+          {/* Pre-title badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="inline-flex items-center gap-2 mb-6"
+          >
+            <div className="w-8 h-px" style={{ background: "var(--accent)" }} />
+            <span
+              className="text-[10px] tracking-[0.3em] uppercase"
+              style={{ color: "var(--text-muted)" }}
+            >
+              FEATURED PROJECT
+            </span>
+          </motion.div>
+
+          {/* Title with gradient accent */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-primary mb-4"
+            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight mb-6 leading-[1.1]"
           >
-            {project.title}
+            <span style={{ color: "var(--text-primary)" }}>
+              {project.title}
+            </span>
           </motion.h1>
 
-          {/* Description */}
-          <p className="text-secondary text-lg max-w-2xl mb-6 leading-relaxed">
-            {project.description}
-          </p>
+          {/* Description with accent line */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="max-w-2xl mb-8"
+          >
+            <div
+              className="w-12 h-px mb-4"
+              style={{
+                background:
+                  "linear-gradient(to right, var(--accent), transparent)",
+              }}
+            />
+            <p
+              className="text-base md:text-lg leading-relaxed"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              {project.description}
+            </p>
+          </motion.div>
 
-          {/* Metrics row */}
+          {/* Metrics row - Glass card style */}
           {metrics.length > 0 && (
-            <div className="flex flex-wrap gap-6 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-wrap gap-4 mb-10"
+            >
               {metrics.map((metric, idx) => (
-                <div key={idx} className="flex items-center gap-2">
+                <div
+                  key={idx}
+                  className="flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-sm"
+                  style={{
+                    background: "var(--bg-light)",
+                    border: "1px solid var(--border-light)",
+                  }}
+                >
                   <div
-                    className="w-1.5 h-1.5 rounded-full"
-                    style={{ background: metric.color }}
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: "var(--accent)" }}
                   />
-                  <span className="text-muted text-sm">
-                    <span className="text-primary font-medium">
+                  <div className="flex items-baseline gap-1.5">
+                    <span
+                      className="text-sm font-semibold"
+                      style={{ color: "var(--text-primary)" }}
+                    >
                       {metric.value}
-                    </span>{" "}
-                    {metric.label}
-                  </span>
+                    </span>
+                    <span
+                      className="text-xs"
+                      style={{ color: "var(--text-muted)" }}
+                    >
+                      {metric.label}
+                    </span>
+                  </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           )}
 
           {/* CTA + Tags row */}
-          <div className="flex flex-wrap items-center gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="flex flex-wrap items-center gap-4"
+          >
             {project.link && (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative z-10 cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-all hover:scale-[1.02]"
+                className="group relative overflow-hidden cursor-pointer inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                style={{
+                  background: "var(--gradient-accent)",
+                  color: "var(--bg-darker)",
+                }}
               >
-                <ExternalLink size={14} />
-                Live Demo
+                <ExternalLink
+                  size={14}
+                  className="transition-transform group-hover:rotate-12"
+                />
+                <span>Live Demo</span>
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background:
+                      "linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent)",
+                    transform: "skewX(-20deg)",
+                  }}
+                />
               </a>
             )}
+
             <div className="flex flex-wrap gap-2">
               {project.tags?.slice(0, 6).map((tag, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.02]"
                   style={{
-                    background: "rgba(255,255,255,0.05)",
-                    color: "rgba(255,255,255,0.6)",
+                    background: "var(--bg-light)",
+                    color: "var(--text-secondary)",
+                    border: "1px solid var(--border-light)",
                   }}
                 >
                   {tagIcons[tag] ?? (
-                    <Code2 size={14} className="text-white/30" />
+                    <Code2 size={12} style={{ color: "var(--accent)" }} />
                   )}
                   {tag}
                 </span>
               ))}
               {project.tags && project.tags.length > 6 && (
-                <span className="px-3 py-1.5 text-xs text-white/40">
-                  +{project.tags.length - 6}
+                <span
+                  className="px-3 py-1.5 text-xs font-medium"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  +{project.tags.length - 6} more
                 </span>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Gallery Section - Full width image */}
-      <div className="border-b border-light">
+      <div style={{ borderBottom: "1px solid var(--border-light)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <ProjectGalleryClient
             images={project.images}
@@ -262,10 +357,16 @@ export default function ProjectDetailClient({
               <div className="space-y-6">
                 {challenge && (
                   <div>
-                    <h2 className="text-xs font-medium text-muted uppercase tracking-wider mb-3">
+                    <h2
+                      className="text-xs font-medium uppercase tracking-wider mb-3"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       THE CHALLENGE
                     </h2>
-                    <p className="text-secondary text-base leading-relaxed">
+                    <p
+                      className="text-base leading-relaxed"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
                       {challenge}
                     </p>
                   </div>
@@ -273,7 +374,10 @@ export default function ProjectDetailClient({
 
                 {results && results.length > 0 && (
                   <div>
-                    <h2 className="text-xs font-medium text-muted uppercase tracking-wider mb-3">
+                    <h2
+                      className="text-xs font-medium uppercase tracking-wider mb-3"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       OUTCOMES
                     </h2>
                     <div className="flex flex-wrap gap-3">
@@ -282,12 +386,18 @@ export default function ProjectDetailClient({
                           key={idx}
                           className="flex items-center gap-2 px-3 py-1.5 rounded-full"
                           style={{
-                            background: "rgba(16, 185, 129, 0.1)",
-                            border: "1px solid rgba(16, 185, 129, 0.2)",
+                            background: "var(--accent-muted)",
+                            border: "1px solid var(--border-light)",
                           }}
                         >
-                          <CheckCircle size={12} style={{ color: "#10B981" }} />
-                          <span className="text-primary/70 text-sm">
+                          <CheckCircle
+                            size={12}
+                            style={{ color: "var(--accent)" }}
+                          />
+                          <span
+                            className="text-sm"
+                            style={{ color: "var(--text-secondary)" }}
+                          >
                             {result}
                           </span>
                         </div>
@@ -301,7 +411,10 @@ export default function ProjectDetailClient({
             {/* Features - Clean grid */}
             {project.features && project.features.length > 0 && (
               <div>
-                <h2 className="text-xs font-medium text-muted uppercase tracking-wider mb-6">
+                <h2
+                  className="text-xs font-medium uppercase tracking-wider mb-6"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   KEY FEATURES
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -309,15 +422,28 @@ export default function ProjectDetailClient({
                     <div
                       key={idx}
                       className="group p-4 rounded-xl transition-all hover:bg-white/5"
-                      style={{ border: "1px solid var(--border-light)" }}
+                      style={{
+                        border: "1px solid var(--border-light)",
+                      }}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="text-accent mt-0.5">{feature.icon}</div>
+                        <div
+                          className="mt-0.5"
+                          style={{ color: "var(--accent)" }}
+                        >
+                          {feature.icon}
+                        </div>
                         <div>
-                          <h3 className="text-primary/90 text-sm font-medium mb-1">
+                          <h3
+                            className="text-sm font-medium mb-1"
+                            style={{ color: "var(--text-primary)" }}
+                          >
                             {feature.title}
                           </h3>
-                          <p className="text-muted text-xs leading-relaxed">
+                          <p
+                            className="text-xs leading-relaxed"
+                            style={{ color: "var(--text-muted)" }}
+                          >
                             {feature.description}
                           </p>
                         </div>
@@ -331,18 +457,23 @@ export default function ProjectDetailClient({
             {/* Contributions */}
             {project.contributions && project.contributions.length > 0 && (
               <div>
-                <h2 className="text-xs font-medium text-muted uppercase tracking-wider mb-6">
+                <h2
+                  className="text-xs font-medium uppercase tracking-wider mb-6"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   MY CONTRIBUTIONS
                 </h2>
                 <div className="space-y-3">
                   {project.contributions.map((item, idx) => (
                     <div
                       key={idx}
-                      className="flex gap-3 text-secondary text-sm"
+                      className="flex gap-3 text-sm"
+                      style={{ color: "var(--text-secondary)" }}
                     >
                       <CheckCircle
                         size={14}
-                        className="text-accent mt-0.5 shrink-0"
+                        className="shrink-0"
+                        style={{ color: "var(--accent)" }}
                       />
                       <span className="leading-relaxed">{item}</span>
                     </div>
@@ -359,11 +490,14 @@ export default function ProjectDetailClient({
               <div
                 className="rounded-xl p-5"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
+                  background: "var(--bg-light)",
                   border: "1px solid var(--border-light)",
                 }}
               >
-                <h3 className="text-muted text-xs uppercase tracking-wider mb-4">
+                <h3
+                  className="text-xs uppercase tracking-wider mb-4"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   Tech Stack
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -372,12 +506,15 @@ export default function ProjectDetailClient({
                       key={i}
                       className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs"
                       style={{
-                        background: "rgba(255,255,255,0.05)",
-                        color: "rgba(255,255,255,0.7)",
+                        background: "var(--bg-light)",
+                        color: "var(--text-muted)",
                       }}
                     >
                       {tagIcons[tag] ?? (
-                        <Code2 size={12} className="text-white/30" />
+                        <Code2
+                          size={12}
+                          style={{ color: "var(--text-muted)" }}
+                        />
                       )}
                       {tag}
                     </span>
@@ -391,11 +528,14 @@ export default function ProjectDetailClient({
               <div
                 className="rounded-xl p-5"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
+                  background: "var(--bg-light)",
                   border: "1px solid var(--border-light)",
                 }}
               >
-                <h3 className="text-muted text-xs uppercase tracking-wider mb-4">
+                <h3
+                  className="text-xs uppercase tracking-wider mb-4"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   Key Metrics
                 </h3>
                 <div className="space-y-3">
@@ -404,12 +544,15 @@ export default function ProjectDetailClient({
                       key={idx}
                       className="flex justify-between items-center"
                     >
-                      <span className="text-secondary text-sm">
+                      <span
+                        className="text-sm"
+                        style={{ color: "var(--text-secondary)" }}
+                      >
                         {metric.label}
                       </span>
                       <span
-                        className="text-primary font-medium"
-                        style={{ color: metric.color }}
+                        className="font-medium"
+                        style={{ color: "var(--accent)" }}
                       >
                         {metric.value}
                       </span>
@@ -424,16 +567,16 @@ export default function ProjectDetailClient({
               <div
                 className="rounded-xl p-5 text-center"
                 style={{
-                  background:
-                    "var(--gradient-card, linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0.02) 100%))",
-                  border: "1px solid var(--accent-muted, rgba(59,130,246,0.2))",
+                  background: "var(--bg-light)",
+                  border: "1px solid var(--border-light)",
                 }}
               >
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-accent text-sm font-medium hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-sm font-medium transition-all hover:gap-3"
+                  style={{ color: "var(--accent)" }}
                 >
                   View Live Project
                   <ExternalLink size={14} />
